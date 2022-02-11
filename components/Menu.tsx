@@ -132,7 +132,7 @@ export default function Menu({
         </DropdownMenu.Item>
         <DropdownMenu.Separator className="w-full border-t border-stone-200" />
         <DropdownMenu.Item>
-          <Link href={`${data.appleMusicTracks[id]}`} passHref>
+          <Link href={data.appleMusicTracks[id]} passHref>
             <a className="flex flex-row items-center justify-between w-64 px-4 text-stone-900">
               Listen on Apple Music
               <AppleMusicLogo />

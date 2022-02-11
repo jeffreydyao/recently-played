@@ -49,6 +49,7 @@ export default async function handler(
       )
         .then((response) => response.json())
         .then((data) => {
+          // TODO: Work out why you have to use JSON.stringify for it to work on Vercel but you can remove in local environment and have it work
           return data.data[0].attributes.url;
         })
         .catch((error) => ({error}))
