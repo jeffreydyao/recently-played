@@ -49,7 +49,7 @@ export default async function handler(
       )
         .then((response) => response.json())
         .then((data) => {
-          return JSON.stringify(data.data[0].attributes.url);
+          return data.data[0].attributes.url;
         })
         .catch((error) => ({error}))
     )
