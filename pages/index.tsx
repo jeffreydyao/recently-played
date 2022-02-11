@@ -1,10 +1,10 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import Header from '../components/Header'
-import { CircleNotch } from 'phosphor-react'
-import Tracks from '../components/Tracks'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Header from "../components/Header";
+import { CircleNotch } from "phosphor-react";
+import Tracks from "../components/Tracks";
 
 const Home: NextPage = () => {
   return (
@@ -14,19 +14,15 @@ const Home: NextPage = () => {
         <meta name="description" content="What I've been playing recently." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
 
-      <Header /> 
+      <Header />
       <main>
-        <div className="flex flex-col w-screen gap-5 px-6 py-5">
+        <div className="flex flex-col w-screen gap-5 px-6 py-6">
           <Tracks />
-
-
         </div>
       </main>
-
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

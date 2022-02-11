@@ -2,7 +2,12 @@ import React from "react";
 
 export function SpotifyLogo() {
   return (
-    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" className="w-5 h-5">
+    <svg
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 21 21"
+      className="w-5 h-5"
+    >
       <path
         d="M10.5 0C4.701 0 0 4.7 0 10.5S4.701 21 10.5 21 21 16.3 21 10.5 16.299 0 10.5 0Zm5.123 15.136a.916.916 0 0 1-1.244.35 10.873 10.873 0 0 0-4.25-1.337 10.933 10.933 0 0 0-4.441.46.913.913 0 0 1-.556-1.74 12.713 12.713 0 0 1 5.182-.537c1.76.18 3.427.704 4.957 1.562.44.245.598.802.352 1.242Zm1.257-3.189a.912.912 0 0 1-1.232.388 14.27 14.27 0 0 0-5.177-1.544 14.23 14.23 0 0 0-5.417.482.913.913 0 0 1-.506-1.755 16.086 16.086 0 0 1 6.108-.544c2.055.209 4.019.794 5.837 1.742.445.233.62.784.387 1.231Zm.454-2.653a.92.92 0 0 1-.407-.096 17.643 17.643 0 0 0-6.115-1.765c-2.15-.22-4.288-.05-6.357.502a.913.913 0 0 1-.47-1.764 19.461 19.461 0 0 1 7.013-.555 19.44 19.44 0 0 1 6.744 1.947.914.914 0 0 1-.408 1.73Z"
         fill="#1ED760"
@@ -13,7 +18,12 @@ export function SpotifyLogo() {
 
 export function AppleMusicLogo() {
   return (
-    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" className="w-5 h-5">
+    <svg
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 21 21"
+      className="w-5 h-5"
+    >
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
