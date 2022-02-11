@@ -6,8 +6,9 @@ const keyId = process.env.APPLE_DEVELOPER_KEY_ID;
 
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
+const path = require("path") // https://stackoverflow.com/questions/33133987/cannot-open-ssl-key-file-in-node-server-enoent
 
-const privateKey = fs.readFileSync("AuthKey.p8").toString();
+const privateKey = fs.readFileSync(path.resolve('AuthKey.p8')).toString();
 
 export default function musicKitToken() {
   const jwtToken = jwt.sign({}, privateKey, {
