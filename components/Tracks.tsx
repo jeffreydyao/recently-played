@@ -32,15 +32,6 @@ export default function Tracks() {
       </div>
     );
 
-  // TODO: Handle errors (i.e. what if playedAt returns null?)
-  const menuProps = {
-    // @ts-expect-error
-    playedAt: track.played_at,
-    // @ts-expect-error
-    spotifyUrl: track.spotify_url,
-    id: index,
-  };
-
   // @ts-expect-error
   return data.tracks.map((track: any, index) => (
     <div
@@ -61,7 +52,11 @@ export default function Tracks() {
             <Play weight="fill" className="w-4 h-4" />
           </a>
         </Link>
-        <Menu {...menuProps} />
+        <Menu
+          playedAt={track.played_at}
+          spotifyUrl={track.spotify_url}
+          id={index}
+        />
       </div>
     </div>
   ));
