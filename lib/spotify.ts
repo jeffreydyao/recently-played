@@ -90,7 +90,7 @@ export const getTracks = async (number: number) => {
 
   const tracks = items.map((track: any) => ({
     artist: track.track.artists.map((data: any) => data.name).join(", "),
-    artwork_url: track.track.album.images[2].url,
+    artwork_url: track.track.album.images[1].url,
     isrc: track.track.external_ids.isrc,
     played_at: track.played_at,
     preview_url: track.track.preview_url,

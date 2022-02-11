@@ -39,7 +39,7 @@ export default function Tracks() {
       className="flex flex-row items-center justify-between"
     >
       <div className="flex flex-row gap-3">
-        <img src={track.artwork_url} className="w-10 h-10 rounded" />
+        <img src={track.artwork_url} className="w-10 h-10 rounded" alt={`Album art for ${track.title} by ${track.artist}`}/>
         <div className="flex flex-col">
           <h2 className="text-neutral-900">{track.title}</h2>
           <h3 className="text-sm text-neutral-700">{track.artist}</h3>
