@@ -6,6 +6,10 @@ import Header from "../components/Header";
 import { CircleNotch } from "phosphor-react";
 import Tracks from "../components/Tracks";
 import Player from "../components/Player";
+import PlayerOne from "../components/ReactPlayer";
+import PlayerTwo from "../components/Player copy";
+
+
 const Home: NextPage = () => {
   return (
     <div className="flex flex-col w-screen min-h-screen transition-all bg-stone-100">

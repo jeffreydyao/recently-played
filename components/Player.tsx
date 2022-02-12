@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import PlayerControls from "./PlayerControls";
 import * as Progress from "@radix-ui/react-progress";
+import ReactPlayer from "react-player";
 
 export default function Player({
   title,
@@ -40,11 +41,11 @@ export default function Player({
 
   useEffect(() => {
     if (isPlaying) {
-      audio.current.play();
+      audio.current?.play();
       startTimer();
     } else {
       clearInterval(intervalRef.current);
-      audio.current.pause();
+      audio.current?.pause();
     }
   }, [isPlaying]);
 
@@ -57,13 +58,14 @@ export default function Player({
       clearInterval(intervalRef.current);
     };
   }); */
-
+  
   const startTimer = () => {
     clearInterval(intervalRef.current);
-
-    intervalRef.current = setInterval(() => {
-      setTrackProgress(audio.current?.currentTime);
-    }, [1000]);
+    // @ts-expect-error 
+    // TODO: Fix this
+    intervalRef.current = window.setInterval(() => {
+      setTrackProgress(audio.current!.currentTime);
+    }, 50);
 
   };
 
@@ -84,8 +86,8 @@ export default function Player({
         className="absolute bottom-0 w-[96%] h-1 transform -translate-x-1/2 bg-emerald-200 rounded-full left-1/2"
       >
         <Progress.Indicator
-          className="h-full rounded-full bg-emerald-500"
-          style={{ width: `${duration}%` }}
+          className="h-full transition-all duration-[25] ease-linear rounded-full bg-emerald-500"
+          style={{ width: `${currentPercentage}` }}
         />
       </Progress.Root>
     </div>
