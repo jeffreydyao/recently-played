@@ -5,7 +5,7 @@ import styles from "../styles/Home.module.css";
 import Header from "../components/Header";
 import { CircleNotch } from "phosphor-react";
 import Tracks from "../components/Tracks";
-
+import Player from "../components/Player";
 const Home: NextPage = () => {
   return (
     <div className="flex flex-col w-screen min-h-screen transition-all bg-stone-100">
@@ -19,6 +19,7 @@ const Home: NextPage = () => {
       <main>
         <div className="flex flex-col w-screen gap-5 px-6 py-6">
           <Tracks />
+          <Player />
         </div>
       </main>
     </div>
