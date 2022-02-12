@@ -10,12 +10,12 @@ export default function Avatar() {
 
   console.log(data)
 
-  if (error) return <div>failed to load</div>
+  if (error) return <div className="w-6 h-6 rounded-full bg-neutral-300" />
   if (!data) return <div className="w-6 h-6 rounded-full animate-pulse bg-neutral-100" />
   return (
     <Link href={data.user.url} passHref>
       <a>
-        <img src={data.user.image} className="w-6 h-6 transition-all rounded-full"/>
+        <img src={data.user.image} className="w-6 h-6 transition-all rounded-full hover:saturate-150 hover:brightness-105"/>
       </a>
     </Link>
  

@@ -31,7 +31,7 @@ export default function Menu({
   const duration = 0.2;
   const exitDuration = duration / 2;
 
-  // console.log(data.appleMusicTracks[5])
+  // Split DropdownMenu into separate component, pass state prop (i.e. if error return <DropdownMenu state={error} />)
 
   if (error)
     return (
@@ -120,29 +120,29 @@ export default function Menu({
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content
-        className="flex flex-col items-start gap-3 py-3 rounded-md bg-stone-50 drop-shadow-md"
+        className="flex flex-col items-start rounded-md bg-stone-50 drop-shadow-md"
         sideOffset={9}
         onCloseAutoFocus={(event) => event.preventDefault()}
       >
-        <DropdownMenu.Item>
+        <DropdownMenu.Item className="hover:outline-none focus:outline-none focus:bg-stone-200 focus:rounded-t">
           <Link href={`${spotifyUrl}`} passHref>
-            <a className="flex flex-row items-center justify-between w-64 px-4 text-stone-900">
+            <a className="flex flex-row items-center justify-between w-64 px-4 py-3 rounded-t-md text-stone-900 ">
               Listen on Spotify
               <SpotifyLogo />
             </a>
           </Link>
         </DropdownMenu.Item>
         <DropdownMenu.Separator className="w-full border-t border-stone-200" />
-        <DropdownMenu.Item>
+        <DropdownMenu.Item className="hover:outline-none focus:outline-none focus:bg-stone-200">
           <Link href={data.appleMusicTracks[id]} passHref>
-            <a className="flex flex-row items-center justify-between w-64 px-4 text-stone-900">
+            <a className="flex flex-row items-center justify-between w-64 px-4 py-3 text-stone-900 ">
               Listen on Apple Music
               <AppleMusicLogo />
             </a>
           </Link>
         </DropdownMenu.Item>
         <DropdownMenu.Separator className="w-full border-t border-stone-400" />
-        <DropdownMenu.Label className="flex flex-row items-center justify-between w-64 px-4 text-sm text-stone-500">
+        <DropdownMenu.Label className="flex flex-row items-center justify-between w-64 px-4 py-3 text-sm text-stone-500">
           {timestamp}
         </DropdownMenu.Label>
       </DropdownMenu.Content>
