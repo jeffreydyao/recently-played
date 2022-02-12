@@ -38,7 +38,7 @@ export default function Tracks() {
       key={track.isrc}
       className="flex flex-row items-center justify-between"
     >
-      <div className="flex flex-row gap-3">
+      <div className="flex flex-row items-center gap-3">
         <img src={track.artwork_url} className="w-10 h-10 rounded" alt={`Album art for ${track.title} by ${track.artist}`}/>
         <div className="flex flex-col">
           <h2 className="text-neutral-900">{track.title}</h2>

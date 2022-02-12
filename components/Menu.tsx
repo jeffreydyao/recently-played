@@ -31,6 +31,8 @@ export default function Menu({
   const duration = 0.2;
   const exitDuration = duration / 2;
 
+  // console.log(data.appleMusicTracks[5])
+
   if (error)
     return (
       <DropdownMenu.Root>
