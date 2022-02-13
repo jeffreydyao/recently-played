@@ -1,8 +1,10 @@
-import { CircleNotch, SmileySad, Play } from "phosphor-react";
+import { CircleNotch, SmileySad, Play, SmileyWink } from "phosphor-react";
 import React from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import Menu from "./Menu";
+import Player from "./Player";
+import * as Portal from "@radix-ui/react-portal";
 
 import fetcher from "../lib/fetcher";
 
@@ -10,6 +12,15 @@ export default function Tracks() {
   let track;
   let index;
 
+  // Make it so it only renders one element
+  function changePlayer(clickedId: any) {
+    this.setState({
+      isPlayer: !this.state.isPlayer,
+      clickedButton: clickedId,
+    });
+  }
+
+  const [loadPlayer, setLoadPlayer] = React.useState(null);
   const { data, error } = useSWR("/api/tracks", fetcher);
 
   if (error)
@@ -39,7 +50,11 @@ export default function Tracks() {
       className="flex flex-row items-center justify-between"
     >
       <div className="flex flex-row items-center gap-3">
-        <img src={track.artwork_url} className="w-10 h-10 rounded" alt={`Album art for ${track.title} by ${track.artist}`}/>
+        <img
+          src={track.artwork_url}
+          className="w-10 h-10 rounded"
+          alt={`Album art for ${track.title} by ${track.artist}`}
+        />
         <div className="flex flex-col">
           <h2 className="text-neutral-900">{track.title}</h2>
           <h3 className="text-sm text-neutral-700">{track.artist}</h3>
@@ -47,11 +62,23 @@ export default function Tracks() {
       </div>
       <div className="flex flex-row items-center gap-3">
         {/* TODO: Implement audio player */}
-        <Link href={track.preview_url}>
-          <a>
-            <Play weight="fill" className="w-4 h-4" />
-          </a>
-        </Link>
+        <button
+          onClick={() =>
+            setLoadPlayer((loadPlayer) => (loadPlayer === index ? null : index))
+          }
+        >
+          <Play weight="fill" className="w-4 h-4" />
+        </button>
+        {loadPlayer === index && (
+          <Portal.Root>
+            <Player
+              title={track.title}
+              artist={track.artist}
+              artworkUrl={track.artwork_url}
+              previewUrl={track.preview_url}
+            />
+          </Portal.Root>
+        )}
         <Menu
           playedAt={track.played_at}
           spotifyUrl={track.spotify_url}

@@ -6,19 +6,20 @@ import ReactPlayer from "react-player";
 export default function Player({
   title,
   artist,
-  url,
+  artworkUrl,
+  previewUrl,
 }: {
   title: any;
   artist: any;
-  url: any;
+  artworkUrl: any;
+  previewUrl: any;
 }) {
   // State
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
 
   // Define audioSrc for testing
-  const audioSrc =
-    "https://p.scdn.co/mp3-preview/ea052b0bdb97320821f4fb3d17d09f97a8b55cab?cid=fd8c093872a04aad875e32aa77c989dd";
+  const audioSrc = `${previewUrl}`
 
   // Refs
   // https://github.com/vercel/next.js/discussions/17963
@@ -50,14 +51,15 @@ export default function Player({
   }, [isPlaying]);
 
 
-  // Why does this run at the interval defined in startTimer?
- /*  useEffect(() => {
+// TODO: Clean up when unmount (isn't this done above already?)
+/*   useEffect(() => {
     // Pause and clean up on unmount
     return () => {
-      audio.current.pause();
+      audio.current?.pause();
       clearInterval(intervalRef.current);
     };
-  }); */
+  });
+ */
   
   const startTimer = () => {
     clearInterval(intervalRef.current);
@@ -70,13 +72,13 @@ export default function Player({
   };
 
   return (
-    <div className="relative py-3 rounded-md bg-neutral-100 drop-shadow-md">
+    <div className="fixed bottom-0 py-3 mb-8 rounded-md drop-shadow-md left-10 right-10 bg-neutral-100 " id="player">
       <div className="flex flex-row items-center justify-between px-4">
         <div className="flex flex-row items-center gap-3">
-          <div className="w-8 h-8 rounded bg-neutral-400" /> {/* Album art */}
+          <img className="w-8 h-8 rounded" src={artworkUrl} />
           <div className="flex flex-col">
-            <p className="text-[0.875rem] text-neutral-900">Track title</p>
-            <p className="text-[0.8125rem] text-neutral-700"> Artist</p>
+            <p className="text-[0.875rem] text-neutral-900">{title}</p>
+            <p className="text-[0.8125rem] text-neutral-700">{artist}</p>
           </div>
         </div>
         <PlayerControls isPlaying={isPlaying} onPlayPauseClick={setIsPlaying} />

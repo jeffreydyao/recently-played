@@ -1,4 +1,5 @@
 import { Play, Pause, X } from "phosphor-react";
+import { unmountComponentAtNode, render } from "react-dom";
 
 export default function PlayerControls({
   isPlaying,
@@ -7,6 +8,8 @@ export default function PlayerControls({
   isPlaying: any;
   onPlayPauseClick: any;
 }) {
+
+
   return (
     <div className="flex flex-row items-center gap-3">
       {isPlaying ? (
@@ -20,7 +23,7 @@ export default function PlayerControls({
       )}
 
       <button>
-        <X weight="fill" className="w-6 h-6" />
+        <X weight="fill" className="w-6 h-6" onClick={() => unmountComponentAtNode(document.getElementById('player'))}/>
       </button>
     </div>
   );

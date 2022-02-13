@@ -23,7 +23,6 @@ const Home: NextPage = () => {
       <main>
         <div className="flex flex-col w-screen gap-5 px-6 py-6">
           <Tracks />
-          <Player />
         </div>
       </main>
     </div>
