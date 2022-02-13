@@ -120,7 +120,7 @@ export default function Player({
           exit={{ opacity: 0 }}
         >
           <div
-            className="fixed bottom-0 py-3 mb-8 rounded-md drop-shadow-md left-4 right-4 md:left-12 md:right-12 bg-neutral-100 dark:bg-neutral-800"
+            className="fixed bottom-0 py-2 mb-8 rounded-md drop-shadow-md left-4 right-4 md:left-12 md:right-12 bg-neutral-100 dark:bg-neutral-800"
             id="player"
           >
             <div className="flex flex-row items-center justify-between px-4 pb-1">
