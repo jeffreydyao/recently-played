@@ -123,7 +123,7 @@ export default function Player({
             className="fixed bottom-0 py-3 mb-8 rounded-md drop-shadow-md left-4 right-4 md:left-12 md:right-12 bg-neutral-100 dark:bg-neutral-800"
             id="player"
           >
-            <div className="flex flex-row items-center justify-between px-4">
+            <div className="flex flex-row items-center justify-between px-4 pb-1">
               <div className="flex flex-row items-center gap-3">
                 <img className="w-8 h-8 rounded" src={artworkUrl} />
                 <div className="flex flex-col">
@@ -143,7 +143,7 @@ export default function Player({
             </div>
             <Progress.Root
               value={duration}
-              className="absolute bottom-0 w-[96%] h-1 transform -translate-x-1/2 bg-emerald-200 dark:bg-emerald-700 rounded-full left-1/2"
+              className="absolute bottom-0 w-[98%] h-1 transform -translate-x-1/2 bg-emerald-200 dark:bg-emerald-700 rounded-full left-1/2"
             >
               <Progress.Indicator
                 className="h-full transition-all duration-[50ms] ease-linear rounded-full bg-emerald-500 dark:bg-emerald-400"
