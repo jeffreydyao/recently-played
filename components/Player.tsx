@@ -123,10 +123,10 @@ export default function Player({
             </div>
             <Progress.Root
               value={duration}
-              className="absolute bottom-0 w-[96%] h-1 transform -translate-x-1/2 bg-emerald-200 rounded-full left-1/2"
+              className="absolute bottom-0 w-[96%] h-1 transform -translate-x-1/2 bg-emerald-200 dark:bg-emerald-400 rounded-full left-1/2"
             >
               <Progress.Indicator
-                className="h-full transition-all duration-[25] ease-linear rounded-full bg-emerald-500"
+                className="h-full transition-all duration-[25] ease-linear rounded-full bg-emerald-500 dark:bg-emerald-700"
                 style={{ width: `${currentPercentage}` }}
               />
             </Progress.Root>
