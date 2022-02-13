@@ -9,6 +9,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import fetcher from "../lib/fetcher";
 import { SpotifyLogo, AppleMusicLogo } from "../components/Icons";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Menu({
   playedAt,
@@ -32,6 +33,7 @@ export default function Menu({
   const exitDuration = duration / 2;
 
   // Split DropdownMenu into separate component, pass state prop (i.e. if error return <DropdownMenu state={error} />)
+  // TODO: Add DropdownMenu transitions with framer-motion
 
   if (error)
     return (
@@ -118,11 +120,12 @@ export default function Menu({
           aria-label="Listen to the full version of this song"
         />
       </DropdownMenu.Trigger>
-
+      
       <DropdownMenu.Content
         className="flex flex-col items-start rounded-md bg-stone-50 drop-shadow-md"
         sideOffset={9}
         onCloseAutoFocus={(event) => event.preventDefault()}
+        loop={true} // Return to start of menu after last item reached with keyboard nav
       >
         <DropdownMenu.Item className="hover:outline-none focus:outline-none focus:bg-stone-200 focus:rounded-t">
           <Link href={`${spotifyUrl}`} passHref>

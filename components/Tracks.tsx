@@ -55,7 +55,7 @@ export default function Tracks() {
           className="w-10 h-10 rounded"
           alt={`Album art for ${track.title} by ${track.artist}`}
         />
-        <div className="flex flex-col">
+        <div className="flex flex-col pr-3 md:pr-0">
           <h2 className="text-neutral-900">{track.title}</h2>
           <h3 className="text-sm text-neutral-700">{track.artist}</h3>
         </div>
@@ -66,6 +66,7 @@ export default function Tracks() {
           onClick={() =>
             setLoadPlayer((loadPlayer) => (loadPlayer === index ? null : index))
           }
+          className="flex items-center justify-center w-6 h-6 rounded-md hover:bg-stone-200 focus:bg-stone-200 focus:ring focus:outline-none"
         >
           <Play weight="fill" className="w-4 h-4" />
         </button>

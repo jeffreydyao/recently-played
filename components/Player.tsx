@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import PlayerControls from "./PlayerControls";
 import * as Progress from "@radix-ui/react-progress";
-import { AnimatePresence, motion } from "framer-motion"
-
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Player({
   title,
@@ -46,7 +45,7 @@ export default function Player({
   useEffect(() => {
     setIsPlaying(true);
   }, []);
-  
+
   useEffect(() => {
     // If play button clicked, play audio and start timer for progress bar
     if (isPlaying) {
@@ -82,40 +81,47 @@ export default function Player({
   }, [showState]);
 
   // Show player when showState is true (i.e. button clicked), and close when false
+  // TODO: Add slide up / slide down animation by adjusting CSS position properties
+  // ^ When this happens, width isn't correct when animating - fix this
   return (
     <AnimatePresence>
       {showState ? (
-        <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
-        <div
-          className="fixed bottom-0 py-3 mb-8 rounded-md drop-shadow-md left-10 right-10 bg-neutral-100 "
-          id="player"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          <div className="flex flex-row items-center justify-between px-4">
-            <div className="flex flex-row items-center gap-3">
-              <img className="w-8 h-8 rounded" src={artworkUrl} />
-              <div className="flex flex-col">
-                <p className="text-[0.875rem] text-neutral-900">{title}</p>
-                <p className="text-[0.8125rem] text-neutral-700">{artist}</p>
-              </div>
-            </div>
-            <PlayerControls
-              isPlaying={isPlaying}
-              onPlayPauseClick={setIsPlaying}
-              onCloseClick={setShowState}
-            />
-          </div>
-          <Progress.Root
-            value={duration}
-            className="absolute bottom-0 w-[96%] h-1 transform -translate-x-1/2 bg-emerald-200 rounded-full left-1/2"
+          <div
+            className="fixed bottom-0 py-3 mb-8 rounded-md drop-shadow-md left-4 right-4 md:left-12 md:right-12 bg-neutral-100 "
+            id="player"
           >
-            <Progress.Indicator
-              className="h-full transition-all duration-[25] ease-linear rounded-full bg-emerald-500"
-              style={{ width: `${currentPercentage}` }}
-            />
-          </Progress.Root>
-        </div>
-      </motion.div>
-      ): (null)}:
+            <div className="flex flex-row items-center justify-between px-4">
+              <div className="flex flex-row items-center gap-3">
+                <img className="w-8 h-8 rounded" src={artworkUrl} />
+                <div className="flex flex-col">
+                  <p className="text-[0.875rem] text-neutral-900">{title}</p>
+                  <p className="text-[0.8125rem] text-neutral-700">{artist}</p>
+                </div>
+              </div>
+              <PlayerControls
+                isPlaying={isPlaying}
+                onPlayPauseClick={setIsPlaying}
+                onCloseClick={setShowState}
+              />
+            </div>
+            <Progress.Root
+              value={duration}
+              className="absolute bottom-0 w-[96%] h-1 transform -translate-x-1/2 bg-emerald-200 rounded-full left-1/2"
+            >
+              <Progress.Indicator
+                className="h-full transition-all duration-[25] ease-linear rounded-full bg-emerald-500"
+                style={{ width: `${currentPercentage}` }}
+              />
+            </Progress.Root>
+          </div>
+        </motion.div>
+      ) : null}
+      :
     </AnimatePresence>
-  )
+  );
 }
