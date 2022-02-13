@@ -49,8 +49,26 @@ export default function Player({
   useEffect(() => {
     // If play button clicked, play audio and start timer for progress bar
     if (isPlaying) {
-      audio.current?.play();
-      startTimer();
+      if (currentPercentage == "100%") {
+        setTrackProgress(0)
+        clearInterval(intervalRef.current);
+        audio.current?.currentTime == 0;  
+
+        // Race condition occurs if play() is called in if statement, meaning pause() interrupts it. Calling it with a 10ms delay prevents this.
+        // More info: https://developers.google.com/web/updates/2017/06/play-request-was-interrupted 
+        // Solution: https://stackoverflow.com/a/37172024 
+        setTimeout(() => {
+          setIsPlaying(true)
+          audio.current?.play()
+          startTimer();
+        }, 10)
+
+        console.log("Executed!")
+      } else {
+        audio.current?.play();
+        startTimer();
+      }
+
     } else {
       clearInterval(intervalRef.current);
       audio.current?.pause();
@@ -65,12 +83,14 @@ export default function Player({
 
 
   // When song finishes playing, change pause button to play
+  // TODO: Replay song when play button clicked
   useEffect(() => {
     if (currentPercentage == "100%") {
       setIsPlaying(false);
     }
   });
 
+  // Set conservative refresh interval of 50ms to prevent choppy audio due to too many refreshes
   const startTimer = () => {
     clearInterval(intervalRef.current);
     // @ts-expect-error
@@ -126,7 +146,7 @@ export default function Player({
               className="absolute bottom-0 w-[96%] h-1 transform -translate-x-1/2 bg-emerald-200 dark:bg-emerald-700 rounded-full left-1/2"
             >
               <Progress.Indicator
-                className="h-full transition-all duration-[25] ease-linear rounded-full bg-emerald-500 dark:bg-emerald-400"
+                className="h-full transition-all duration-[50ms] ease-linear rounded-full bg-emerald-500 dark:bg-emerald-400"
                 style={{ width: `${currentPercentage}` }}
               />
             </Progress.Root>
