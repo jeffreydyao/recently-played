@@ -63,6 +63,14 @@ export default function Player({
     };
   }, [isPlaying]);
 
+
+  // When song finishes playing, change pause button to play
+  useEffect(() => {
+    if (currentPercentage == "100%") {
+      setIsPlaying(false);
+    }
+  });
+
   const startTimer = () => {
     clearInterval(intervalRef.current);
     // @ts-expect-error
@@ -99,8 +107,12 @@ export default function Player({
               <div className="flex flex-row items-center gap-3">
                 <img className="w-8 h-8 rounded" src={artworkUrl} />
                 <div className="flex flex-col">
-                  <p className="text-[0.875rem] text-neutral-900 dark:text-neutral-200">{title}</p>
-                  <p className="text-[0.8125rem] text-neutral-700 dark:text-neutral-400">{artist}</p>
+                  <p className="text-[0.875rem] text-neutral-900 dark:text-neutral-200">
+                    {title}
+                  </p>
+                  <p className="text-[0.8125rem] text-neutral-700 dark:text-neutral-400">
+                    {artist}
+                  </p>
                 </div>
               </div>
               <PlayerControls

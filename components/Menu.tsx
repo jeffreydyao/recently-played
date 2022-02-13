@@ -53,7 +53,7 @@ export default function Menu({
         >
           <DropdownMenu.Item>
             <Link href={`${spotifyUrl}`} passHref>
-              <a className="flex flex-row items-center justify-between w-64 px-4 text-stone-500 dark:text-neutral-200">
+              <a className="flex flex-row items-center justify-between w-64 px-4 text-stone-900 dark:text-neutral-200">
                 Listen on Spotify
                 <SpotifyLogo />
               </a>
@@ -91,7 +91,7 @@ export default function Menu({
         >
           <DropdownMenu.Item>
             <Link href={`${spotifyUrl}`} passHref>
-              <a className="flex flex-row items-center justify-between w-64 px-4 text-stone-900">
+              <a className="flex flex-row items-center justify-between w-64 px-4 text-stone-900 dark:text-neutral-200">
                 Listen on Spotify
                 <SpotifyLogo />
               </a>
