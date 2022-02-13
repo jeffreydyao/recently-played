@@ -26,8 +26,8 @@ export default function Tracks() {
   if (error)
     return (
       <div className="flex flex-col items-center">
-        <SmileySad className="text-neutral-800 w-9 h-9" />
-        <p className="pt-2 text-sm text-neutral-800 text-medium">
+        <SmileySad className="text-neutral-800 dark:text-neutral-100 w-9 h-9" />
+        <p className="pt-2 text-sm text-neutral-800 dark:text-neutral-100 text-medium">
           Failed to load tracks.
         </p>
       </div>
@@ -38,8 +38,8 @@ export default function Tracks() {
   if (!data)
     return (
       <div className="flex flex-col items-center">
-        <CircleNotch className="text-neutral-600 w-9 h-9 animate-spin" />
-        <p className="pt-2 text-sm text-neutral-600 text-medium">Loading ...</p>
+        <CircleNotch className="text-neutral-600 dark:text-neutral-200 w-9 h-9 animate-spin" />
+        <p className="pt-2 text-sm text-neutral-600 dark:text-neutral-200 text-medium">Loading ...</p>
       </div>
     );
 
@@ -56,8 +56,8 @@ export default function Tracks() {
           alt={`Album art for ${track.title} by ${track.artist}`}
         />
         <div className="flex flex-col pr-3 md:pr-0">
-          <h2 className="text-neutral-900">{track.title}</h2>
-          <h3 className="text-sm text-neutral-700">{track.artist}</h3>
+          <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
+          <h3 className="text-sm text-neutral-700 dark:text-neutral-400">{track.artist}</h3>
         </div>
       </div>
       <div className="flex flex-row items-center gap-3">
@@ -66,9 +66,9 @@ export default function Tracks() {
           onClick={() =>
             setLoadPlayer((loadPlayer) => (loadPlayer === index ? null : index))
           }
-          className="flex items-center justify-center w-6 h-6 rounded-md hover:bg-stone-200 focus:bg-stone-200 focus:ring focus:outline-none"
+          className="flex items-center justify-center w-6 h-6 rounded-md hover:bg-stone-200 focus:bg-stone-200 focus:ring focus:outline-none dark:hover:bg-stone-800 dark:focus:bg-stone-800 dark:radix-state-open:bg-stone-700"
         >
-          <Play weight="fill" className="w-4 h-4" />
+          <Play weight="fill" className="w-4 h-4 text-neutral-900 dark:text-neutral-300" />
         </button>
         {loadPlayer === index && (
           <Portal.Root>

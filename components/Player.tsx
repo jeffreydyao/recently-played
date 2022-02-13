@@ -92,15 +92,15 @@ export default function Player({
           exit={{ opacity: 0 }}
         >
           <div
-            className="fixed bottom-0 py-3 mb-8 rounded-md drop-shadow-md left-4 right-4 md:left-12 md:right-12 bg-neutral-100 "
+            className="fixed bottom-0 py-3 mb-8 rounded-md drop-shadow-md left-4 right-4 md:left-12 md:right-12 bg-neutral-100 dark:bg-neutral-800"
             id="player"
           >
             <div className="flex flex-row items-center justify-between px-4">
               <div className="flex flex-row items-center gap-3">
                 <img className="w-8 h-8 rounded" src={artworkUrl} />
                 <div className="flex flex-col">
-                  <p className="text-[0.875rem] text-neutral-900">{title}</p>
-                  <p className="text-[0.8125rem] text-neutral-700">{artist}</p>
+                  <p className="text-[0.875rem] text-neutral-900 dark:text-neutral-200">{title}</p>
+                  <p className="text-[0.8125rem] text-neutral-700 dark:text-neutral-400">{artist}</p>
                 </div>
               </div>
               <PlayerControls
