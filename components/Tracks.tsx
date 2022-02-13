@@ -1,7 +1,6 @@
-import { CircleNotch, SmileySad, Play, SmileyWink } from "phosphor-react";
+import { CircleNotch, SmileySad, Play, WaveSine } from "phosphor-react";
 import React from "react";
 import useSWR from "swr";
-import Link from "next/link";
 import Menu from "./Menu";
 import Player from "./Player";
 import * as Portal from "@radix-ui/react-portal";
@@ -11,14 +10,6 @@ import fetcher from "../lib/fetcher";
 export default function Tracks() {
   let track;
   let index;
-
-  // Make it so it only renders one element
-  function changePlayer(clickedId: any) {
-    this.setState({
-      isPlayer: !this.state.isPlayer,
-      clickedButton: clickedId,
-    });
-  }
 
   const [loadPlayer, setLoadPlayer] = React.useState(null);
   const { data, error } = useSWR("/api/tracks", fetcher);
@@ -56,7 +47,15 @@ export default function Tracks() {
           alt={`Album art for ${track.title} by ${track.artist}`}
         />
         <div className="flex flex-col pr-3 md:pr-0">
-          <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
+          {track.isPlaying !== undefined ? (
+            <div className="flex flex-row items-center justify-center gap-2">
+              {/* TODO: Add your own SVG equaliser here */}
+              <WaveSine weight="bold" className="w-4 h-4 text-emerald-400" />
+              <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
+            </div>
+          ) : (
+            <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
+          )}
           <h3 className="text-sm text-neutral-700 dark:text-neutral-400">{track.artist}</h3>
         </div>
       </div>
