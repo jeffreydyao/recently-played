@@ -48,7 +48,7 @@ export default function Tracks() {
         />
         <div className="flex flex-col pr-3 md:pr-0">
           {track.isPlaying !== undefined ? (
-            <div className="flex flex-row items-center justify-center gap-2">
+            <div className="flex flex-row items-center justify-start gap-2">
               {/* TODO: Add your own SVG equaliser here */}
               <WaveSine weight="bold" className="w-4 h-4 text-emerald-400" />
               <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
