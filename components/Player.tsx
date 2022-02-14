@@ -116,6 +116,7 @@ export default function Player({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{duration: 0.25}}
         >
           <div className="fixed bottom-0 flex flex-col items-center justify-start w-full px-4 pb-8 h-fit from-stone-100/75 to-stone-100 dark:from-neutral-900/50 dark:to-neutral-900 bg-gradient-to-b">
             <div
