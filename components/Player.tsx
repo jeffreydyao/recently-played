@@ -50,25 +50,24 @@ export default function Player({
     // If play button clicked, play audio and start timer for progress bar
     if (isPlaying) {
       if (currentPercentage == "100%") {
-        setTrackProgress(0)
+        setTrackProgress(0);
         clearInterval(intervalRef.current);
-        audio.current?.currentTime == 0;  
+        audio.current?.currentTime == 0;
 
         // Race condition occurs if play() is called in if statement, meaning pause() interrupts it. Calling it with a 10ms delay prevents this.
-        // More info: https://developers.google.com/web/updates/2017/06/play-request-was-interrupted 
-        // Solution: https://stackoverflow.com/a/37172024 
+        // More info: https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
+        // Solution: https://stackoverflow.com/a/37172024
         setTimeout(() => {
-          setIsPlaying(true)
-          audio.current?.play()
+          setIsPlaying(true);
+          audio.current?.play();
           startTimer();
-        }, 10)
+        }, 10);
 
-        console.log("Executed!")
+        console.log("Executed!");
       } else {
         audio.current?.play();
         startTimer();
       }
-
     } else {
       clearInterval(intervalRef.current);
       audio.current?.pause();
@@ -80,7 +79,6 @@ export default function Player({
       clearInterval(intervalRef.current);
     };
   }, [isPlaying]);
-
 
   // When song finishes playing, change pause button to play
   // TODO: Replay song when play button clicked
@@ -119,37 +117,39 @@ export default function Player({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div
-            className="fixed bottom-0 py-2 mb-8 rounded-md drop-shadow-md left-4 right-4 md:left-12 md:right-12 bg-neutral-100 dark:bg-neutral-800"
-            id="player"
-          >
-            <div className="flex flex-row items-center justify-between px-4 pb-1">
-              <div className="flex flex-row items-center gap-3">
-                <img className="w-8 h-8 rounded" src={artworkUrl} />
-                <div className="flex flex-col">
-                  <p className="text-[0.875rem] text-neutral-900 dark:text-neutral-200">
-                    {title}
-                  </p>
-                  <p className="text-[0.8125rem] text-neutral-700 dark:text-neutral-400">
-                    {artist}
-                  </p>
-                </div>
-              </div>
-              <PlayerControls
-                isPlaying={isPlaying}
-                onPlayPauseClick={setIsPlaying}
-                onCloseClick={setShowState}
-              />
-            </div>
-            <Progress.Root
-              value={duration}
-              className="absolute bottom-0 w-[98%] h-1 transform -translate-x-1/2 bg-emerald-200 dark:bg-emerald-700 rounded-full left-1/2"
+          <div className="fixed bottom-0 flex flex-col items-center justify-start w-screen px-4 pb-8 h-fit from-stone-100/75 to-stone-100 dark:from-neutral-900/50 dark:to-neutral-900 bg-gradient-to-b">
+            <div
+              className="w-full py-2 rounded-md drop-shadow-md bg-neutral-100 dark:bg-neutral-800"
+              id="player"
             >
-              <Progress.Indicator
-                className="h-full transition-all duration-[50ms] ease-linear rounded-full bg-emerald-500 dark:bg-emerald-400"
-                style={{ width: `${currentPercentage}` }}
-              />
-            </Progress.Root>
+              <div className="flex flex-row items-center justify-between px-4 pb-1">
+                <div className="flex flex-row items-center gap-3">
+                  <img className="w-8 h-8 rounded" src={artworkUrl} />
+                  <div className="flex flex-col">
+                    <p className="text-[0.875rem] text-neutral-900 dark:text-neutral-200">
+                      {title}
+                    </p>
+                    <p className="text-[0.8125rem] text-neutral-700 dark:text-neutral-400">
+                      {artist}
+                    </p>
+                  </div>
+                </div>
+                <PlayerControls
+                  isPlaying={isPlaying}
+                  onPlayPauseClick={setIsPlaying}
+                  onCloseClick={setShowState}
+                />
+              </div>
+              <Progress.Root
+                value={duration}
+                className="absolute bottom-0 w-[98%] h-1 transform -translate-x-1/2 bg-emerald-200 dark:bg-emerald-700 rounded-full left-1/2"
+              >
+                <Progress.Indicator
+                  className="h-full transition-all duration-[50ms] ease-linear rounded-full bg-emerald-500 dark:bg-emerald-400"
+                  style={{ width: `${currentPercentage}` }}
+                />
+              </Progress.Root>
+            </div>
           </div>
         </motion.div>
       ) : null}
