@@ -127,7 +127,7 @@ export default function Menu({
         onCloseAutoFocus={(event) => event.preventDefault()}
         loop={true} // Return to start of menu after last item reached with keyboard nav
       >
-        <DropdownMenu.Item className="hover:outline-none focus:outline-none focus:bg-stone-200 focus:rounded-t">
+        <DropdownMenu.Item className="hover:outline-none focus:outline-none focus:bg-stone-200 dark:focus:bg-stone-900 focus:rounded-t">
           <Link href={`${spotifyUrl}`} passHref>
             <a className="flex flex-row items-center justify-between w-64 px-4 py-3 rounded-t-md text-stone-900 dark:text-neutral-200">
               Listen on Spotify
@@ -136,7 +136,7 @@ export default function Menu({
           </Link>
         </DropdownMenu.Item>
         <DropdownMenu.Separator className="w-full border-t border-stone-200 dark:border-neutral-700" />
-        <DropdownMenu.Item className="hover:outline-none focus:outline-none focus:bg-stone-200">
+        <DropdownMenu.Item className="hover:outline-none focus:outline-none focus:bg-stone-200 dark:focus:bg-stone-900">
           <Link href={data.appleMusicTracks[id]} passHref>
             <a className="flex flex-row items-center justify-between w-64 px-4 py-3 text-stone-900 dark:text-neutral-200">
               Listen on Apple Music

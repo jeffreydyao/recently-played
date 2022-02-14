@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col w-screen min-h-screen transition-colors bg-stone-100 dark:bg-neutral-900">
+    <div className="flex flex-col w-full min-h-screen transition-colors duration-[0ms] bg-stone-100 dark:bg-neutral-900">
       <Head>
         <title>Recently Played</title>
         <meta name="description" content="What I've been playing recently." />
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 
       <Header />
       <main>
-        <div className="flex flex-col w-screen gap-5 px-6 py-6">
+        <div className="flex flex-col w-full gap-5 px-6 py-6">
           <Tracks />
         </div>
       </main>

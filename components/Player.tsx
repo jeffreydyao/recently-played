@@ -117,9 +117,9 @@ export default function Player({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="fixed bottom-0 flex flex-col items-center justify-start w-screen px-4 pb-8 transition-colors h-fit from-stone-100/75 to-stone-100 dark:from-neutral-900/50 dark:to-neutral-900 bg-gradient-to-b">
+          <div className="fixed bottom-0 flex flex-col items-center justify-start w-full px-4 pb-8 h-fit from-stone-100/75 to-stone-100 dark:from-neutral-900/50 dark:to-neutral-900 bg-gradient-to-b">
             <div
-              className="w-full py-2 rounded-md drop-shadow-md bg-neutral-100 dark:bg-neutral-800"
+              className="w-full py-2 transition-colors duration-[0ms] rounded-md drop-shadow-md bg-neutral-100 dark:bg-neutral-800"
               id="player"
             >
               <div className="flex flex-row items-center justify-between px-4">
