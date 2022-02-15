@@ -11,7 +11,6 @@ export default function PlayerControls({
   onPlayPauseClick: any;
   onCloseClick: any;
 }) {
-  const [closePlayer, setClosePlayer] = React.useState(null);
 
   return (
     <div className="flex flex-row items-center gap-3">

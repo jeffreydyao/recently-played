@@ -6,10 +6,8 @@ import fetcher from "../lib/fetcher";
 
 
 export default function Avatar() {
-  const { data, error } = useSWR('/api/user', fetcher);
-
-  console.log(data)
-
+  const { data, error } = useSWR('/api/user', fetcher)
+  
   if (error) return <div className="w-6 h-6 rounded-full bg-neutral-300" />
   if (!data) return <div className="w-6 h-6 rounded-full animate-pulse bg-neutral-100" />
   return (

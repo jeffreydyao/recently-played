@@ -60,7 +60,6 @@ export default function Tracks() {
         </div>
       </div>
       <div className="flex flex-row items-center gap-3">
-        {/* TODO: Implement audio player */}
         <button
           onClick={() =>
             setLoadPlayer((loadPlayer) => (loadPlayer === index ? null : index))
