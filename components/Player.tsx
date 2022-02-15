@@ -103,16 +103,15 @@ export default function Player({
     };
   });
 
-
   const { lastSeenDate } = useVisibilityChange();
 
   useEffect(() => {
-    console.log(lastSeenDate)
+    console.log(lastSeenDate);
     let remainingAfterRefocus =
       30 -
       audio.current?.currentTime -
-      (new Date() - Date.parse(lastSeenDate)) / 1000 +
-      1.2; //
+      (new Date() - Date.parse(lastSeenDate)) / 1000 + // use-visiblity-change returns date as format incompatible with Safari - parse fixes this
+      1.2;
     if (playState) {
       controls.start({
         scaleX: 1,
