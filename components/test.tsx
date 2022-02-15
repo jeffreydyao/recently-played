@@ -1,14 +1,15 @@
+import React, { useState, useEffect, useRef } from 'react';
+import PlayerControls from './PlayerControls';
 import {
-  animate,
   AnimatePresence,
   motion,
   useAnimation,
+  animate,
+  motionValue,
   useMotionValue,
 } from 'framer-motion';
-import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
 import { useVisibilityChange } from 'use-visibility-change';
-import PlayerControls from './PlayerControls';
+import Image from 'next/image';
 
 export default function Player({
   title,
@@ -35,6 +36,7 @@ export default function Player({
   const audioSrc = previewUrl;
 
   const controls = useAnimation(); // Initialise Framer Motion playback controls
+  const controls2 = useAnimation(); // Initialise Framer Motion playback controls
 
   // Refs: https://github.com/vercel/next.js/discussions/17963
   // We can't run the Audio API on the server, so we call it on the client using a hook.
