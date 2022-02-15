@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Recently Played 🎵
 
-It includes [Tailwind CSS](https://tailwindcss.com), the [Inter font](https://rsms.me/inter) and is written in TypeScript.
+See what you've been listening to recently on Spotify and share it with your friends! 
+- If you're listening to a track now, a waveform icon appears beside it. 🌟
+- Listen to a 30 second preview of each track. 🎧
+- Find the full version of each song on Spotify and Apple Music[^1]. 😎
+
+[^1]: Requires an Apple Developer account enrolled in the Apple Developer Program.
+
+Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com), [Radix Primitives](https://www.radix-ui.com/), [Framer Motion](https://www.framer.com/motion/) and the Spotify + MusicKit APIs. 
 
 ## Getting Started
+Clone the repo locally or deploy with Vercel instantly.
 
-First, run the following command to create a new project with this template:
-```bash
-npx create-next-app@latest rec --ts -e https://github.com/jeffreydyao/next-tailwind-starter
-```
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjeffreydyao%2Frecently-played&env=SPOTIFY_CLIENT_ID,SPOTIFY_CLIENT_SECRET,SPOTIFY_REFRESH_TOKEN,APPLE_DEVELOPER_TEAM_ID,APPLE_DEVELOPER_KEY_ID&envDescription=API%20keys%20required%20for%20the%20application%20to%20function.%20See%20the%20link%20for%20instructions.&envLink=https%3A%2F%2Fgithub.com%2Fjeffreydyao%2Frecently-played%2Fblob%2Fmain%2FREADME.md&project-name=recently-played&repo-name=recently-played&demo-title=Recently%20Played&demo-description=Show%20your%20friends%20what%20you've%20been%20playing%20recently%20on%20Spotify%2C%20and%20let%20them&demo-url=recently-played.vercel.app)
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Getting your environmental variables
+WIP - finishing soon
 
