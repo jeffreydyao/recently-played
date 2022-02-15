@@ -15,11 +15,12 @@ export default function Avatar() {
   return (
     <Link href={data.user.url} passHref>
       <a>
-        <div className="w-6 h-6 transition-all rounded-full overflow-clip hover:saturate-[1.3] hover:brightness-[1.05] relative">
+        <div className="w-6 h-6 transition-all hover:saturate-[1.3] hover:brightness-[1.05] relative">
           <Image
             src={data.user.image}
             alt={imageAlt}
             layout="fill"
+            className="rounded-full"
           />
         </div>
       </a>
