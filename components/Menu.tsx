@@ -1,15 +1,15 @@
 // @ts-nocheck
-// TODO: Fix error on line 91: Object is of type unknown
+// TODO: Type line 140 safely (href, object is of type unknown) 
 
-import React from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { DotsThree } from "phosphor-react";
 import { format } from "date-fns";
 import Link from "next/link";
+import { LinkProps } from "next/link";
+import { DotsThree } from "phosphor-react";
+import React from "react";
 import useSWR from "swr";
+import { AppleMusicLogo, SpotifyLogo } from "../components/Icons";
 import fetcher from "../lib/fetcher";
-import { SpotifyLogo, AppleMusicLogo } from "../components/Icons";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function Menu({
   playedAt,

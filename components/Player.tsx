@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import PlayerControls from './PlayerControls';
 import {
-  AnimatePresence,
+  animate, AnimatePresence,
   motion,
-  useAnimation,
-  animate,
-  motionValue,
-  useMotionValue,
+  useAnimation, useMotionValue
 } from 'framer-motion';
-import { useVisibilityChange } from 'use-visibility-change';
 import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
+import { useVisibilityChange } from 'use-visibility-change';
+import PlayerControls from './PlayerControls';
 
 export default function Player({
   title,
@@ -36,7 +33,6 @@ export default function Player({
   const audioSrc = previewUrl;
 
   const controls = useAnimation(); // Initialise Framer Motion playback controls
-  const controls2 = useAnimation(); // Initialise Framer Motion playback controls
 
   // Refs: https://github.com/vercel/next.js/discussions/17963
   // We can't run the Audio API on the server, so we call it on the client using a hook.
@@ -94,13 +90,6 @@ export default function Player({
         console.log('Audio ready - playing - started - 4'); // Four
         remaining.current = 30 - (pauseTime.current - startTime.current);
         console.log(`Remaining time on play is ${remaining.current} - 2`);
-        const controls = animate(x, 1, {
-          ease: 'linear',
-          duration: remaining.current,
-          onComplete: () => {
-            setPlayState(false);
-          },
-        });
       } else {
         // Two
         console.log('Audio not ready - buffering ... - 2');

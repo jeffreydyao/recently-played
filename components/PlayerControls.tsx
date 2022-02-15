@@ -1,5 +1,4 @@
-import { Play, Pause, X } from "phosphor-react";
-import { unmountComponentAtNode, render } from "react-dom";
+import { Pause, Play, X } from "phosphor-react";
 import React from "react";
 
 export default function PlayerControls({

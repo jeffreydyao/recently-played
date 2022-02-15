@@ -1,12 +1,12 @@
-import { CircleNotch, SmileySad, Play, WaveSine } from "phosphor-react";
-import React from "react";
-import useSWR from "swr";
-import Menu from "./Menu";
-import Player from "./Player";
 import * as Portal from "@radix-ui/react-portal";
 import Image from "next/image";
-
+import { CircleNotch, Play, SmileySad, Equalizer, Pause } from "phosphor-react";
+import React from "react";
+import useSWR from "swr";
 import fetcher from "../lib/fetcher";
+import Menu from "./Menu";
+import Player from "./Player";
+
 
 export default function Tracks() {
   let track;
@@ -53,9 +53,9 @@ export default function Tracks() {
         </div>
         <div className="flex flex-col pr-3 md:pr-0">
           {track.isPlaying !== undefined ? (
-            <div className="flex flex-row items-center justify-start gap-2">
+            <div className="flex flex-row items-center justify-start gap-[0.375rem] ">
               {/* TODO: Add your own SVG equaliser here */}
-              <WaveSine weight="bold" className="w-4 h-4 text-emerald-400" />
+              <Equalizer weight="bold" className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
             </div>
           ) : (
@@ -70,6 +70,7 @@ export default function Tracks() {
             setLoadPlayer((loadPlayer) => (loadPlayer === index ? null : index))
           }
           className="flex items-center justify-center w-6 h-6 rounded-md hover:bg-stone-200 focus:bg-stone-200 focus:ring focus:outline-none dark:hover:bg-stone-800 dark:focus:bg-stone-800 dark:radix-state-open:bg-stone-700"
+          aria-label="Play preview"
         >
           <Play weight="fill" className="w-4 h-4 text-neutral-900 dark:text-neutral-300" />
         </button>
