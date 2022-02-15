@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PlayerControls from "./PlayerControls";
 import * as Progress from "@radix-ui/react-progress";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { useVisibilityChange } from "use-visibility-change";
 
 export default function Player({
   title,
@@ -19,8 +20,11 @@ export default function Player({
   const [ready, setReady] = useState(false);
   const [showState, setShowState] = useState(true);
   const startTime = useRef();
-  const elapsedTime = useRef();
+  const pauseTime = useRef();
+  const unfocusTime = useRef();
+  const focusTime = useRef();
   const remaining = useRef(0);
+  const [notStarted, setNotStarted] = useState(true);
 
   const audioSrc = `${previewUrl}`;
 
@@ -38,6 +42,7 @@ export default function Player({
   useEffect(() => {
     setPlayState(true);
     remaining.current = 30;
+    console.log(`First mount - remaining time is ${remaining.current}`);
   }, []);
 
   // Check if audio can be played without interruptions initially
@@ -50,27 +55,46 @@ export default function Player({
       }
     });
   });
-  
 
   useEffect(() => {
     if (playState) {
-      if (ready) {
+      if (ready && notStarted) {
+        // TODO: Solve race condition: Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). https://goo.gl/LdLk22
+        startTime.current = pauseTime.current = performance.now() / 1000;
+        console.log("Audio ready - playing - notStarted - 3"); // Three
+        setNotStarted(false);
+      } else if (ready && progressIndicatorWidth === progressBarWidth) {
+        console.log("Replaying ...!");
+        controls.start({
+          scaleX: 0,
+          transition: { duration: 0, ease: "linear" },
+        });
+        setTimeout(() => {
+          setNotStarted(true); // Loop back to beginning
+        }, 5);
+      } else if (ready) {
         audio.current?.play();
-        console.log("Audio ready - playing");
-        console.log(`Remaining time on play is ${remaining.current}`)
-        controls.start({ scaleX: 1, transition: { duration: 30, ease: "linear" } });
-        // @ts-expect-error
-        startTime.current = performance.now() / 1000;
+        console.log("Audio ready - playing - started - 4"); // Four
+        remaining.current = 30 - (pauseTime.current - startTime.current);
+        console.log(`Remaining time on play is ${remaining.current} - 2`);
+        controls.start({
+          scaleX: 1,
+          transition: { duration: `${remaining.current}`, ease: "linear" },
+        });
       } else {
-        console.log("Audio not ready - buffering ...");
+        // Two
+        console.log("Audio not ready - buffering ... - 2");
         controls.stop();
       }
+    } else if (!ready && notStarted) {
+      // One
+      console.log("Not ready and not started - 1");
     } else {
       audio.current?.pause();
-      // @ts-expect-error
-      remaining.current = 30 - ((performance.now() / 1000) - startTime.current)
-      console.log(remaining)
       controls.stop();
+      pauseTime.current = performance.now() / 1000;
+      console.log(ready);
+      console.log(notStarted);
     }
 
     // Pause audio when unmounted
@@ -80,10 +104,60 @@ export default function Player({
   });
 
 
+  const { lastSeenDate } = useVisibilityChange();
+
+  useEffect(() => {
+    console.log(lastSeenDate)
+    let remainingAfterRefocus =
+      30 -
+      audio.current?.currentTime -
+      (new Date() - Date.parse(lastSeenDate)) / 1000 +
+      1.2; //
+    if (playState) {
+      controls.start({
+        scaleX: 1,
+        transition: { duration: `${remainingAfterRefocus}`, ease: "linear" },
+      });
+    }
+  }, [lastSeenDate]);
+  /* 
 
 
+  // CSS transitions pause if tab switched
+  // Update progress bar when tab refocused
+  useEffect(() => {
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        unfocusTime.current = performance.now() / 1000;
+        console.log(`Window unfocused`);
+        controls.stop();
+      } else {
+        focusTime.current = performance.now() / 1000;
+        console.log(
+          `Window focused - away for ${
+            focusTime.current - unfocusTime.current
+          } - 1`
+        );
+        remaining.current =
+          30 -
+          (pauseTime.current - startTime.current) -
+          (focusTime.current - unfocusTime.current);
+        console.log("Fired!")
+        console.log(remaining.current)
+        controls.start({
+          scaleX: 1,
+          transition: { duration: `${remaining.current}`, ease: "linear" },
+        });
+      }
+    });
+  });
+ */
   let progressBarWidth = document
     .getElementById("progressBarRoot")
+    ?.getBoundingClientRect().width;
+
+  let progressIndicatorWidth = document
+    .getElementById("progressBarIndicator")
     ?.getBoundingClientRect().width;
 
   return (
@@ -104,23 +178,6 @@ export default function Player({
               </p>
             </div>
           </div>
-          <button
-            className="w-4 h-4 bg-red-400"
-            onClick={() =>
-              controls.start({
-                scaleX: 1,
-                transition : {duration: 30, ease: "linear"}
-              })
-            }
-          />
-          <button
-            className="w-4 h-4 bg-blue-400"
-            onClick={() => controls.stop()}
-          />
-          <button
-            className="w-4 h-4 bg-blue-400"
-            onClick={() => console.log(audio.current?.readyState)}
-          />
 
           <PlayerControls
             isPlaying={playState}
@@ -134,7 +191,7 @@ export default function Player({
         >
           <motion.div
             animate={controls}
-            initial={{scaleX: 0, originX:0}} 
+            initial={{ scaleX: 0, originX: 0 }}
             id={"progressBarIndicator"}
           >
             <div className="w-full h-1 bg-emerald-500 dark:bg-emerald-400" />
