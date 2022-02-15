@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import PlayerControls from "./PlayerControls";
-import * as Progress from "@radix-ui/react-progress";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
-import { useVisibilityChange } from "use-visibility-change";
+import React, { useState, useEffect, useRef } from 'react';
+import PlayerControls from './PlayerControls';
+import { AnimatePresence, motion, useAnimation } from 'framer-motion';
+import { useVisibilityChange } from 'use-visibility-change';
 
 export default function Player({
   title,
@@ -10,10 +9,10 @@ export default function Player({
   artworkUrl,
   previewUrl,
 }: {
-  title: any;
-  artist: any;
-  artworkUrl: any;
-  previewUrl: any;
+  title: string;
+  artist: string;
+  artworkUrl: string;
+  previewUrl: string;
 }) {
   // State
   const [playState, setPlayState] = useState(false);
@@ -21,8 +20,6 @@ export default function Player({
   const [showState, setShowState] = useState(true);
   const startTime = useRef();
   const pauseTime = useRef();
-  const unfocusTime = useRef();
-  const focusTime = useRef();
   const remaining = useRef(0);
   const [notStarted, setNotStarted] = useState(true);
 
@@ -33,7 +30,7 @@ export default function Player({
   // Refs: https://github.com/vercel/next.js/discussions/17963
   // We can't run the Audio API on the server, so we call it on the client using a hook.
   const audio = useRef<HTMLAudioElement | undefined>(
-    typeof Audio !== "undefined" ? new Audio(audioSrc) : undefined
+    typeof Audio !== 'undefined' ? new Audio(audioSrc) : undefined,
   );
 
   // Check if audio is buffering
@@ -47,7 +44,7 @@ export default function Player({
 
   // Check if audio can be played without interruptions initially
   useEffect(() => {
-    audio.current?.addEventListener("loadeddata", () => {
+    audio.current?.addEventListener('loadeddata', () => {
       if (audio.current?.readyState! > 2) {
         setReady(true);
       } else {
@@ -61,40 +58,38 @@ export default function Player({
       if (ready && notStarted) {
         // TODO: Solve race condition: Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). https://goo.gl/LdLk22
         startTime.current = pauseTime.current = performance.now() / 1000;
-        console.log("Audio ready - playing - notStarted - 3"); // Three
+        console.log('Audio ready - playing - notStarted - 3'); // Three
         setNotStarted(false);
       } else if (ready && progressIndicatorWidth === progressBarWidth) {
-        console.log("Replaying ...!");
+        console.log('Replaying ...!');
         controls.start({
           scaleX: 0,
-          transition: { duration: 0, ease: "linear" },
+          transition: { duration: 0, ease: 'linear' },
         });
         setTimeout(() => {
           setNotStarted(true); // Loop back to beginning
         }, 5);
       } else if (ready) {
         audio.current?.play();
-        console.log("Audio ready - playing - started - 4"); // Four
+        console.log('Audio ready - playing - started - 4'); // Four
         remaining.current = 30 - (pauseTime.current - startTime.current);
         console.log(`Remaining time on play is ${remaining.current} - 2`);
         controls.start({
           scaleX: 1,
-          transition: { duration: `${remaining.current}`, ease: "linear" },
+          transition: { duration: `${remaining.current}`, ease: 'linear' },
         });
       } else {
         // Two
-        console.log("Audio not ready - buffering ... - 2");
+        console.log('Audio not ready - buffering ... - 2');
         controls.stop();
       }
     } else if (!ready && notStarted) {
       // One
-      console.log("Not ready and not started - 1");
+      console.log('Not ready and not started - 1');
     } else {
       audio.current?.pause();
       controls.stop();
       pauseTime.current = performance.now() / 1000;
-      console.log(ready);
-      console.log(notStarted);
     }
 
     // Pause audio when unmounted
@@ -115,49 +110,27 @@ export default function Player({
     if (playState) {
       controls.start({
         scaleX: 1,
-        transition: { duration: `${remainingAfterRefocus}`, ease: "linear" },
+        transition: { duration: `${remainingAfterRefocus}`, ease: 'linear' },
       });
     }
   }, [lastSeenDate]);
-  /* 
 
 
-  // CSS transitions pause if tab switched
-  // Update progress bar when tab refocused
-  useEffect(() => {
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") {
-        unfocusTime.current = performance.now() / 1000;
-        console.log(`Window unfocused`);
-        controls.stop();
-      } else {
-        focusTime.current = performance.now() / 1000;
-        console.log(
-          `Window focused - away for ${
-            focusTime.current - unfocusTime.current
-          } - 1`
-        );
-        remaining.current =
-          30 -
-          (pauseTime.current - startTime.current) -
-          (focusTime.current - unfocusTime.current);
-        console.log("Fired!")
-        console.log(remaining.current)
-        controls.start({
-          scaleX: 1,
-          transition: { duration: `${remaining.current}`, ease: "linear" },
-        });
-      }
-    });
-  });
- */
   let progressBarWidth = document
-    .getElementById("progressBarRoot")
+    .getElementById('progressBarRoot')
     ?.getBoundingClientRect().width;
 
   let progressIndicatorWidth = document
-    .getElementById("progressBarIndicator")
+    .getElementById('progressBarIndicator')
     ?.getBoundingClientRect().width;
+
+  const penis = progressIndicatorWidth / progressBarWidth
+
+  useEffect(() => {
+    if (progressIndicatorWidth === progressBarWidth) {
+      setPlayState(false)
+    }
+  })
 
   return (
     <div className="fixed bottom-0 flex flex-col items-center justify-start w-full px-4 pb-8 from-stone-100/75 to-stone-100 dark:from-neutral-900/50 dark:to-neutral-900 bg-gradient-to-b">
@@ -191,7 +164,7 @@ export default function Player({
           <motion.div
             animate={controls}
             initial={{ scaleX: 0, originX: 0 }}
-            id={"progressBarIndicator"}
+            id={'progressBarIndicator'}
           >
             <div className="w-full h-1 bg-emerald-500 dark:bg-emerald-400" />
           </motion.div>
