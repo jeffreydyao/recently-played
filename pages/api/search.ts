@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getNowPlaying, getTracks, getCurrentTrack } from "../../lib/spotify";
 import musicKitToken from "../../lib/musicKitToken";
-import { google } from "googleapis";
+import { getCurrentTrack, getNowPlaying, getTracks } from "../../lib/spotify";
 
 // TODO: Integrate YouTube search using block comment
 
