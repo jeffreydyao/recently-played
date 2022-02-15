@@ -23,7 +23,7 @@ export default function Player({
 }) {
   // State
   const [playState, setPlayState] = useState(false);
-  const [ready, setReady] = useState(false);
+  const ready = useRef(false);
   const [showState, setShowState] = useState(true);
   const startTime = useRef<number>(0);
   const pauseTime = useRef<number>(0);
@@ -32,7 +32,7 @@ export default function Player({
 
   const x = useMotionValue(0);
 
-  const audioSrc = `${previewUrl}`;
+  const audioSrc = previewUrl;
 
   const controls = useAnimation(); // Initialise Framer Motion playback controls
   const controls2 = useAnimation(); // Initialise Framer Motion playback controls
@@ -58,9 +58,9 @@ export default function Player({
   // Check if audio is ready to play
   function readyCheck() {
     if (audio.current?.readyState! > 2) {
-      setReady(true);
+      ready.current = true;
     } else {
-      setReady(false);
+      ready.current = false;
     }
   }
 
@@ -121,14 +121,15 @@ export default function Player({
   });
 
   const { lastSeenDate }: any = useVisibilityChange();
-
+  
+  
   useEffect(() => {
-    console.log(lastSeenDate);
+    console.log(Date.parse(lastSeenDate));
     let remainingAfterRefocus =
       30 -
       audio.current?.currentTime! -
-      (new Date().valueOf() - Date.parse(lastSeenDate)) / 1000 + // use-visiblity-change returns date as format incompatible with Safari - parse fixes this
-      1.2;
+      ((new Date().valueOf() - Date.parse(lastSeenDate)) / 1000) // use-visiblity-change returns date as format incompatible with Safari - parse fixes this
+      ;
     if (playState) {
       controls.start({
         scaleX: 1,
