@@ -4,6 +4,7 @@ import useSWR from "swr";
 import Menu from "./Menu";
 import Player from "./Player";
 import * as Portal from "@radix-ui/react-portal";
+import Image from "next/image";
 
 import fetcher from "../lib/fetcher";
 
@@ -41,11 +42,15 @@ export default function Tracks() {
       className="flex flex-row items-center justify-between"
     >
       <div className="flex flex-row items-center gap-3">
-        <img
+        <div className="w-10 h-10 rounded">
+        <Image
           src={track.artwork_url}
-          className="w-10 h-10 rounded"
+          className="rounded"
+          width={40}
+          height={40}
           alt={`Album art for ${track.title} by ${track.artist}`}
         />
+        </div>
         <div className="flex flex-col pr-3 md:pr-0">
           {track.isPlaying !== undefined ? (
             <div className="flex flex-row items-center justify-start gap-2">

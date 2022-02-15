@@ -9,6 +9,7 @@ import {
   useMotionValue,
 } from 'framer-motion';
 import { useVisibilityChange } from 'use-visibility-change';
+import Image from 'next/image';
 
 export default function Player({
   title,
@@ -121,15 +122,13 @@ export default function Player({
   });
 
   const { lastSeenDate }: any = useVisibilityChange();
-  
-  
+
   useEffect(() => {
     console.log(Date.parse(lastSeenDate));
     let remainingAfterRefocus =
       30 -
       audio.current?.currentTime! -
-      ((new Date().valueOf() - Date.parse(lastSeenDate)) / 1000) // use-visiblity-change returns date as format incompatible with Safari - parse fixes this
-      ;
+      (new Date().valueOf() - Date.parse(lastSeenDate)) / 1000; // use-visiblity-change returns date as format incompatible with Safari - parse fixes this
     if (playState) {
       controls.start({
         scaleX: 1,
@@ -177,7 +176,13 @@ export default function Player({
             >
               <div className="flex flex-row items-center justify-between px-4">
                 <div className="flex flex-row items-center gap-3">
-                  <img className="rounded w-9 h-9" src={artworkUrl} />
+                  <Image
+                    src={artworkUrl}
+                    className="rounded"
+                    width={36}
+                    height={36}
+                    alt={`Album art for ${title} by ${artist}`}
+                  />
                   <div className="flex flex-col">
                     <p className="text-[0.875rem] text-neutral-900 dark:text-neutral-200">
                       {title}
