@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
+import Image from 'next/image';
 
 export default function Avatar() {
   const { data, error } = useSWR<any, Error>('/api/user', fetcher);
@@ -14,11 +15,13 @@ export default function Avatar() {
   return (
     <Link href={data.user.url} passHref>
       <a>
-        <img
-          src={data.user.image}
-          alt={imageAlt}
-          className="w-6 h-6 transition-all rounded-full hover:saturate-150 hover:brightness-105"
-        />
+        <div className="w-6 h-6 transition-all rounded-full overflow-clip hover:saturate-[1.3] hover:brightness-[1.05] relative">
+          <Image
+            src={data.user.image}
+            alt={imageAlt}
+            layout="fill"
+          />
+        </div>
       </a>
     </Link>
   );

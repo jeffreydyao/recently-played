@@ -42,19 +42,17 @@ export default function Tracks() {
       className="flex flex-row items-center justify-between"
     >
       <div className="flex flex-row items-center gap-3">
-        <div className="w-10 h-10 rounded">
-        <Image
-          src={track.artwork_url}
-          className="rounded"
-          width={40}
-          height={40}
-          alt={`Album art for ${track.title} by ${track.artist}`}
-        />
+        <div className="relative w-10 h-10">
+          <Image
+            src={track.artwork_url}
+            className="rounded"
+            layout="fill"
+            alt={`Album art for ${track.title} by ${track.artist}`}
+          />
         </div>
         <div className="flex flex-col pr-3 md:pr-0">
           {track.isPlaying !== undefined ? (
             <div className="flex flex-row items-center justify-start gap-[0.375rem] ">
-              {/* TODO: Add your own SVG equaliser here */}
               <Equalizer weight="bold" className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
             </div>
