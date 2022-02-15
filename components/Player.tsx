@@ -128,9 +128,12 @@ export default function Player({
       audio.current?.currentTime! -
       (new Date().valueOf() - Date.parse(lastSeenDate)) / 1000; // use-visiblity-change returns date as format incompatible with Safari - parse fixes this
     if (playState) {
-      controls.start({
-        scaleX: 1,
-        transition: { duration: `${remainingAfterRefocus}`, ease: 'linear' },
+      const controls = animate(x, 1, {
+        ease: 'linear',
+        duration: remainingAfterRefocus,
+        onComplete: () => {
+          setPlayState(false);
+        },
       });
     }
 
