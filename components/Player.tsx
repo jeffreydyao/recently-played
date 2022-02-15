@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PlayerControls from './PlayerControls';
-import { AnimatePresence, motion, useAnimation } from 'framer-motion';
+import { AnimatePresence, motion, useAnimation, animate, motionValue, useMotionValue } from 'framer-motion';
 import { useVisibilityChange } from 'use-visibility-change';
 
 export default function Player({
@@ -53,6 +53,8 @@ export default function Player({
     });
   });
 
+  const x = useMotionValue(0)
+
   useEffect(() => {
     if (playState) {
       if (ready && notStarted) {
@@ -74,10 +76,11 @@ export default function Player({
         console.log('Audio ready - playing - started - 4'); // Four
         remaining.current = 30 - (pauseTime.current - startTime.current);
         console.log(`Remaining time on play is ${remaining.current} - 2`);
-        controls.start({
-          scaleX: 1,
-          transition: { duration: `${remaining.current}`, ease: 'linear' },
-        });
+        const controls = animate(x, 1, {
+          ease: "linear",
+          duration: `${remaining.current}`,
+          onComplete: v => {setPlayState(false)}
+        })
       } else {
         // Two
         console.log('Audio not ready - buffering ... - 2');
@@ -124,13 +127,6 @@ export default function Player({
     .getElementById('progressBarIndicator')
     ?.getBoundingClientRect().width;
 
-  const penis = progressIndicatorWidth / progressBarWidth
-
-  useEffect(() => {
-    if (progressIndicatorWidth === progressBarWidth) {
-      setPlayState(false)
-    }
-  })
 
   return (
     <div className="fixed bottom-0 flex flex-col items-center justify-start w-full px-4 pb-8 from-stone-100/75 to-stone-100 dark:from-neutral-900/50 dark:to-neutral-900 bg-gradient-to-b">
@@ -163,7 +159,8 @@ export default function Player({
         >
           <motion.div
             animate={controls}
-            initial={{ scaleX: 0, originX: 0 }}
+            initial={{ originX: 0 }}
+            style={{ scaleX: x }}
             id={'progressBarIndicator'}
           >
             <div className="w-full h-1 bg-emerald-500 dark:bg-emerald-400" />
