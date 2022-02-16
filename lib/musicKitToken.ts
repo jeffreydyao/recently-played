@@ -13,7 +13,7 @@ const privateKey = fs.readFileSync(path.resolve('AuthKey.p8')).toString();
 export default function musicKitToken() {
   const jwtToken = jwt.sign({}, privateKey, {
     algorithm: "ES256",
-    expiresIn: "180d", // Change to 10s - or however long the API call should take, should get a fresh token every time
+    expiresIn: "180d", 
     issuer: teamId,
     header: {
       alg: "ES256",

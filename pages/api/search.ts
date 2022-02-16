@@ -15,9 +15,9 @@ export default async function handler(
 
   let tracks;
   let nowPlayingTrack;
-  let googleAuth;
+  // let googleAuth;
 
-  // Import logic from /tracks API route to return tracks
+  // Import logic from /tracks API route
   if (nowPlaying.status === 204 || nowPlaying.status > 400) {
     tracks = await getTracks(10);
   } else if (nowPlayingTrack = await nowPlaying.json() && nowPlayingTrack === null) {
@@ -25,6 +25,7 @@ export default async function handler(
   } else {
     const currentTrack = await getCurrentTrack();
     tracks = await getTracks(9);
+    // Shift currently playing track to top of list
     tracks.unshift(currentTrack);
   }
 
@@ -35,6 +36,7 @@ export default async function handler(
     query: track.query,
   }));
 
+  // Match recently played songs on Spotify to Apple Music via ISRC
   const appleMusicTracks = await Promise.all(
     queryData.map((track: any) =>
       fetch(
@@ -48,14 +50,13 @@ export default async function handler(
       )
         .then((response) => response.json())
         .then((data) => {
-          // TODO: Work out why you have to use JSON.stringify for it to work on Vercel but you can remove in local environment and have it work
           return data.data[0].attributes.url;
         })
         .catch((error) => ({error}))
     )
   )
 
-  console.log(appleMusicTracks)
+  // console.log(appleMusicTracks)
 
 /*   googleAuth = new google.auth.GoogleAuth({
     credentials: {

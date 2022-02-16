@@ -21,30 +21,38 @@ export default function Player({
   artworkUrl: string;
   previewUrl: string;
 }) {
-  // State
   const [playState, setPlayState] = useState(false);
-  const ready = useRef(false);
-  const [showState, setShowState] = useState(true);
+  const ready = useRef(false); // Is the audio ready to be played?
+  const [showState, setShowState] = useState(true); // Is the player mounted or not?
   const startTime = useRef<number>(0);
   const pauseTime = useRef<number>(0);
   const remaining = useRef<number>(0);
   const [notStarted, setNotStarted] = useState(true);
 
-  const x = useMotionValue(0);
+  const { lastSeenDate }: any = useVisibilityChange();
+
+  const x = useMotionValue(0); // Initial progress bar state
 
   const audioSrc = previewUrl;
 
   const controls = useAnimation(); // Initialise Framer Motion playback controls
 
-  // Refs: https://github.com/vercel/next.js/discussions/17963
-  // We can't run the Audio API on the server, so we call it on the client using a hook.
+  let progressBarWidth = document
+  .getElementById('progressBarRoot')
+  ?.getBoundingClientRect().width;
+
+  let progressIndicatorWidth = document
+  .getElementById('progressBarIndicator')
+  ?.getBoundingClientRect().width;
+
+
+  // https://github.com/vercel/next.js/discussions/17963
+  // The Web Audio API can't be run server-side, so we call it on the client with a hook.
   const audio = useRef<HTMLAudioElement | undefined>(
     typeof Audio !== 'undefined' ? new Audio(audioSrc) : undefined,
   );
 
-  // Check if audio is buffering
-
-  // Auto-play on first mount
+  // Play preview on first mount
   useEffect(() => {
     setPlayState(true);
     remaining.current = 30;
@@ -54,7 +62,7 @@ export default function Player({
     };
   }, []);
 
-  // Check if audio is ready to play
+  // Check if audio is ready to play without interruptions
   function readyCheck() {
     if (audio.current?.readyState! > 2) {
       ready.current = true;
@@ -63,7 +71,7 @@ export default function Player({
     }
   }
 
-  // Check if audio can be played without interruptions initially
+  // ... by adding a listener for the loadeddata event
   useEffect(() => {
     audio.current?.addEventListener('loadeddata', readyCheck);
 
@@ -72,12 +80,14 @@ export default function Player({
     };
   }, [playState]);
 
+  // Player logic for pausing / playing audio and animating progress bar
   useEffect(() => {
     if (playState) {
       if (ready && notStarted) {
-        // TODO: Solve race condition: Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). https://goo.gl/LdLk22
+        // Store startTime for usage in calculating speed at which to animate progress bar
+        // performance.now() used as higher accuracy than Date.now()
         startTime.current = pauseTime.current = performance.now() / 1000;
-        console.log('Audio ready - playing - notStarted - 3'); // Three
+        // console.log('Audio ready - playing - notStarted - 3');
         setNotStarted(false);
       } else if (ready && progressIndicatorWidth === progressBarWidth) {
         controls.start({
@@ -85,13 +95,14 @@ export default function Player({
           transition: { duration: 0, ease: 'linear' },
         });
         setTimeout(() => {
-          setNotStarted(true); // Loop back to beginning
+          // Go back to beginning
+          setNotStarted(true);
         }, 5);
       } else if (ready) {
         audio.current?.play();
-        console.log('Audio ready - playing - started - 4'); // Four
+        // console.log('Audio ready - playing - started - 4');
         remaining.current = 30 - (pauseTime.current - startTime.current);
-        console.log(`Remaining time on play is ${remaining.current} - 2`);
+        // console.log(`Remaining time on play is ${remaining.current} - 2`);
         const controls = animate(x, 1, {
           ease: 'linear',
           duration: remaining.current,
@@ -100,33 +111,30 @@ export default function Player({
           },
         });
       } else {
-        // Two
-        console.log('Audio not ready - buffering ... - 2');
+        // console.log('Audio not ready - buffering ... - 2');
         controls.stop();
       }
     } else if (!ready && notStarted) {
-      // One
-      console.log('Not ready and not started - 1');
+      // console.log('Not ready and not started - 1');
     } else {
       audio.current?.pause();
       controls.stop();
       pauseTime.current = performance.now() / 1000;
     }
 
-    // Pause audio when unmounted
     return () => {
       audio.current?.pause();
     };
   });
 
-  const { lastSeenDate }: any = useVisibilityChange();
-
+  // CSS animations pause when you switch tabs, meaning the animation finishes later than the audio
+  // To overcome this, we re-calculate the duration remaining by subtracting the time away from the tab 
+  // This hook only fires when the user switches away and back to save resources
   useEffect(() => {
-    console.log(Date.parse(lastSeenDate));
     let remainingAfterRefocus =
       30 -
       audio.current?.currentTime! -
-      (new Date().valueOf() - Date.parse(lastSeenDate)) / 1000; // use-visiblity-change returns date as format incompatible with Safari - parse fixes this
+      (new Date().valueOf() - Date.parse(lastSeenDate)) / 1000; // Date.parse() returns lastSeenDate in format compliant with iOS Safari
     if (playState) {
       const controls = animate(x, 1, {
         ease: 'linear',
@@ -152,14 +160,6 @@ export default function Player({
       setShowState(false);
     };
   }, [showState]);
-
-  let progressBarWidth = document
-    .getElementById('progressBarRoot')
-    ?.getBoundingClientRect().width;
-
-  let progressIndicatorWidth = document
-    .getElementById('progressBarIndicator')
-    ?.getBoundingClientRect().width;
 
   return (
     <AnimatePresence>

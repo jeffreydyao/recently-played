@@ -1,5 +1,5 @@
 // @ts-nocheck
-// TODO: Type line 140 safely (href, object is of type unknown) 
+// TODO: Type line 140 safely (href, object is of type unknown) before removing no-check
 
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { format } from "date-fns";
@@ -31,9 +31,6 @@ export default function Menu({
   const [open, setOpen] = React.useState(false);
   const duration = 0.2;
   const exitDuration = duration / 2;
-
-  // Split DropdownMenu into separate component, pass state prop (i.e. if error return <DropdownMenu state={error} />)
-  // TODO: Add DropdownMenu transitions with framer-motion
 
   if (error)
     return (

@@ -8,6 +8,7 @@ const RECENTLY_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-
 const PROFILE_ENDPOINT = `https://api.spotify.com/v1/me`
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
+// Generate a new access token every API call
 const getAccessToken = async () => {
   const response = await fetch(TOKEN_ENDPOINT, {
     method: "POST",
@@ -26,6 +27,7 @@ const getAccessToken = async () => {
 
 // TODO: Refactor getNowPlaying and getCurrentTrack to merge both into one function
 
+// Fetch currently playing track from Spotify
 export const getNowPlaying = async () => {
   const { access_token } = await getAccessToken();
 
@@ -36,6 +38,7 @@ export const getNowPlaying = async () => {
   });
 };
 
+// Return filtered data for currently playing track
 export const getCurrentTrack = async () => {
   const nowPlaying = await getNowPlaying();
   const track = await nowPlaying.json();
@@ -71,6 +74,7 @@ export const getCurrentTrack = async () => {
 
 // TODO: Refactor getRecentlyPlayed and getTracks to merge both into one function
 
+// Fetch recently played tracks
 export const getRecentlyPlayed = async (maxResults: number) => {
   const { access_token } = await getAccessToken();
 
@@ -84,6 +88,7 @@ export const getRecentlyPlayed = async (maxResults: number) => {
   );
 };
 
+// Return filtered data for recently played tracks
 export const getTracks = async (number: number) => {
   const recentlyPlayed = await getRecentlyPlayed(number);
   const { items } = await recentlyPlayed.json();
@@ -108,6 +113,7 @@ export const getTracks = async (number: number) => {
 
 // TODO: Refactor fetchProfile and getProfileData to merge both into one function
 
+// Fetch Spotify profile data
 export const fetchProfile = async () => {
   const { access_token } = await getAccessToken();
 
@@ -118,6 +124,7 @@ export const fetchProfile = async () => {
   });
 };
 
+// Return filtered profile data
 export const getProfileData = async () => {
   const data = await fetchProfile();
   const profile = await data.json();

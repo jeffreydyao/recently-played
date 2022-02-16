@@ -25,8 +25,6 @@ export default function Tracks() {
       </div>
     );
 
-  // TODO: Perhaps add progress bar for better communication?
-  // https://github.com/vercel/swr/issues/159
   if (!data)
     return (
       <div className="flex flex-col items-center">
