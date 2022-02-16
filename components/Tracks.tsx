@@ -42,20 +42,22 @@ export default function Tracks() {
       className="flex flex-row items-center justify-between"
     >
       <div className="flex flex-row items-center gap-3">
-        <div className="relative w-10 h-10 max-h-10 max-w-10" >
+        <div className="relative flex flex-none w-10 h-10 rounded max-h-10 max-w-10" >
           <Image
             src={track.artwork_url}
-            className="rounded"
             layout="fill"
-            objectFit="cover"
+            objectFit="contain"
+            className="rounded"
             alt={`Album art for ${track.title} by ${track.artist}`}
           />
         </div>
         <div className="flex flex-col pr-3 md:pr-0">
           {track.isPlaying !== undefined ? (
-            <div className="flex flex-row items-center justify-start gap-[0.375rem] ">
-              <Equalizer weight="bold" className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
+            <div className="flex flex-row items-center justify-start gap-[0.375rem]">
+              <div className="flex flex-none">
+               <Equalizer weight="bold" className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h2 className="leading-6 text-neutral-900 dark:text-neutral-200">{track.title}</h2>
             </div>
           ) : (
             <h2 className="text-neutral-900 dark:text-neutral-200">{track.title}</h2>
