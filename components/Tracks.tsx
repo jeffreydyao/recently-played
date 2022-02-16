@@ -42,11 +42,12 @@ export default function Tracks() {
       className="flex flex-row items-center justify-between"
     >
       <div className="flex flex-row items-center gap-3">
-        <div className="relative w-10 h-10">
+        <div className="relative w-10 h-10 max-h-10 max-w-10" >
           <Image
             src={track.artwork_url}
             className="rounded"
             layout="fill"
+            objectFit="cover"
             alt={`Album art for ${track.title} by ${track.artist}`}
           />
         </div>

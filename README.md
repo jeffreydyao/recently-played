@@ -1,9 +1,11 @@
 # Recently Played 🎵
 
+![Screenshot of app](/public/demo.png)
+
 See what you've been listening to recently on Spotify and share it with your friends! 
 - If you're listening to a track now, a waveform icon appears beside it. 🌟
 - Listen to a 30 second preview of each track. 🎧
-- Find the full version of each song on Spotify and Apple Music. (YouTube coming later!) 😎
+- Get the full version of each song on Spotify and Apple Music. (YouTube coming later!) 😎
 
 Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com), [Radix Primitives](https://www.radix-ui.com/), [Framer Motion](https://www.framer.com/motion/) and the [Spotify](https://developer.spotify.com/documentation/web-api/) + [MusicKit](https://developer.apple.com/musickit/) APIs. 
 
@@ -31,7 +33,7 @@ Clone the repo and setup a new .env.local file. For values, refer to the [setup 
     APPLE_DEVELOPER_KEY_ID=VALUE
 
 
-### <a name="setup"></a>Environmental variables setup
+### <a name="setup"></a>Setting up your environmental variables
 
 | Environmental variable | Where to find it | Optional? |
 | --- | --- | --- |
@@ -41,4 +43,21 @@ Clone the repo and setup a new .env.local file. For values, refer to the [setup 
 | `APPLE_DEVELOPER_TEAM_ID` | To locate your Team ID, sign in to your [developer account](https://developer.apple.com/account), and click Membership in the sidebar. Your Team ID appears in the Membership Information section under the team name. | ✅ |
 | `APPLE_DEVELOPER_KEY_ID` | Follow the Apple Developer instructions [here](https://help.apple.com/developer-account/#/devcdfbb56a3). Enable Media Services for your key. | ✅ |
 
+## Why'd I make this project?
+I first learned HTML, CSS and JS by making a [page](listening-to.vercel.app) that displayed my recently listened to tracks from Last.fm. However, I wanted to pull data **directly** from the Spotify API and also learn more about React, TypeScript, APIs and web development in general. Building this project allowed me to dive deep into those things. 
+
+## What'd I learn? 
+A blog post is coming soon. ([Visit my site!](jyao.me))
+
+- How to build a performant web app
+  - JavaScript and React memory management - removing listeners and clearing timers when components unmount, etc.
+  - Debugging memory leaks and more with Chrome / Safari DevTools + LightHouse (I got my app to 99 on all the metrics!)
+  - Next.js best practices and image optimization
+- More about JS/TS, React and web development in general
+  - JavaScript: event listeners and new methods including Temporal()
+  - React: Hooks, refs and component lifecycles
+  - Next.js: API routes, image optimization
+  - Working with framer-motion and other nice libraries
+  - Traversing and working with JSON data 
+  - Consuming APIs
 
