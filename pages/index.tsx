@@ -9,7 +9,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Recently Played</title>
         <meta name="description" content="What I've been playing recently." />
-        <meta name="og:image" content="/recentlyplayed_og.png" />
+        <meta name="image" property="og:image" content="/recentlyplayed_og.png" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
